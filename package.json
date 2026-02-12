@@ -1,0 +1,171 @@
+{
+  "name": "vuenify",
+  "displayName": "Vuenify",
+  "description": "Opinionated formatter for Vue SFC <template> blocks: sorts classes, normalizes directives and orders attributes.",
+  "version": "1.2.0",
+  "publisher": "zwe1ch",
+  "author": {
+    "name": "Rayk Jackisch",
+    "email": "rayk@jackisch.net"
+  },
+  "activationEvents": [
+    "onLanguage:vue"
+  ],
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "icon": "icon.png",
+  "categories": [
+    "Programming Languages",
+    "Formatters"
+  ],
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue3",
+    "sfc",
+    "template",
+    "formatter",
+    "formatting",
+    "attributes",
+    "classes",
+    "directives"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vuenify.sortClasses",
+        "title": "Vuenify: Sort Classes"
+      },
+      {
+        "command": "vuenify.normalizeDirectives",
+        "title": "Vuenify: Normalize Directives"
+      },
+      {
+        "command": "vuenify.orderAttributesAndDirectives",
+        "title": "Vuenify: Order Attributes & Directives"
+      }
+    ],
+    "codeActions": [
+      {
+        "kind": "source.vuenify"
+      }
+    ],
+    "configuration": {
+      "title": "Vuenify",
+      "type": "object",
+      "properties": {
+        "vuenify.classes.sort": {
+          "type": "boolean",
+          "default": true,
+          "description": "Sort static class attributes alphabetically."
+        },
+        "vuenify.classes.removeDuplicates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove duplicate class names."
+        },
+        "vuenify.classes.layout": {
+          "type": "string",
+          "enum": [
+            "inline",
+            "preserve"
+          ],
+          "default": "inline",
+          "description": "Controls how class attribute whitespace is handled."
+        },
+        "vuenify.directives.normalize": {
+          "type": "boolean",
+          "default": true,
+          "description": "Normalize supported Vue directives."
+        },
+        "vuenify.directives.style": {
+          "type": "string",
+          "enum": [
+            "short",
+            "long"
+          ],
+          "default": "short",
+          "description": "Directive style to use when normalizing."
+        },
+        "vuenify.directives.sameName": {
+          "type": "string",
+          "enum": [
+            "ignore",
+            "removeValue",
+            "addValue"
+          ],
+          "default": "ignore",
+          "description": "How to handle same-name bindings like :src=\"src\"."
+        },
+        "vuenify.order.directives": {
+          "type": "boolean",
+          "default": true,
+          "description": "Order Vue directives by configured priority."
+        },
+        "vuenify.order.directivePriority": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "if",
+            "else",
+            "else-if",
+            "for",
+            "on",
+            "model",
+            "bind"
+          ],
+          "description": "Priority order for Vue directives."
+        },
+        "vuenify.order.attributes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Sort non-directive attributes (value first, then boolean)."
+        },
+        "vuenify.order.layout": {
+          "type": "string",
+          "enum": [
+            "inline",
+            "preserve"
+          ],
+          "default": "inline",
+          "description": "How to handle whitespace between attributes during reordering. 'inline' puts everything in one line, 'preserve' keeps newlines if they were present."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^25.2.3",
+    "@types/vscode": "^1.109.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.55.0"
+  },
+  "dependencies": {
+    "@vue/compiler-dom": "^3.5.27",
+    "@vue/compiler-sfc": "^3.5.28"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zwe1ch/vscode-vuenify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zwe1ch/vscode-vuenify/issues"
+  },
+  "homepage": "https://github.com/zwe1ch/vscode-vuenify#readme",
+  "license": "MIT"
+}
